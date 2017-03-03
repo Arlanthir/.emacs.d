@@ -385,7 +385,7 @@
 (set-face-attribute whitespace-tab nil :foreground "#444444" :background (face-attribute 'default :background))
 (set-face-attribute 'whitespace-space nil :foreground "#444444" :background (face-attribute 'default :background))
 (set-face-attribute 'whitespace-hspace nil :foreground "#444444" :background (face-attribute 'default :background))
-(set-face-attribute 'whitespace-trailing nil :foreground "#ff0000" :background (face-attribute 'default :background))
+(set-face-attribute 'whitespace-trailing nil :foreground "#ff0000" :background "red4")
 
 
 
