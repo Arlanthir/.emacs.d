@@ -35,9 +35,11 @@
 ;;
 ;; -----------------------------------------------------------------------------
 
+(add-to-list 'load-path "~/.emacs.d/lisp/")
 
 (require 'cl) ; Common Lisp functions
 (load-library "ediff")
+
 
 ;; ------------------------
 ;; Configuration Constants
@@ -142,33 +144,29 @@
 ;; Default options: '(face tabs spaces trailing lines space-before-tab newline
 ;;                    indentation empty space-after-tab space-mark tab-mark newline-mark))
 (setq whitespace-style '(face trailing))  ; Show only some whitespace
-;; Default whitespace-tab-regexp: \\(\t+\\)
-(setq whitespace-tab-regexp "^ *\\(\t+\\)") ;; Show only indentation tabs
-(set-face-attribute 'whitespace-tab nil :foreground "#444444" :background "red") ;; (face-attribute 'default :background))
-;; Default whitespace-space-regexp: \\( +\\)
-(setq whitespace-space-regexp "^\t*\\( +\\)") ;; Show only indentation spaces
-(set-face-attribute 'whitespace-space nil :foreground "#333333" :background (face-attribute 'default :background))
-(set-face-attribute 'whitespace-hspace nil :foreground "#333333" :background (face-attribute 'default :background))
-(set-face-attribute 'whitespace-trailing nil :foreground "#ff0000" :background (face-attribute 'default :background))
 (global-whitespace-mode t)             ; Enable globally for all buffers
 
-;; (font-lock-add-keywords 'lisp-mode
-;;                         '(("^\\( +\\)"
-;; 			   (1 whitespace-trailing t)
-;; 			   )))
+;; (defvar epo1-whitespace 'epo1-whitespace)
+;; (defface epo1-whitespace
+;;   '((t :foreground "#444444"))
+;;   "Face for whitespace.")
 
-;; (font-lock-add-keywords 'lisp-mode
-;;                         '(("^\\( +\\)"
-;; 			   (1 whitespace-trailing t)
-;; 			   (1 (prog1
-;; 			   	  (compose-region (match-beginning 0)
-;; 			   			  (match-end 0)
-;; 			   			  (make-string (- (match-end 0) (match-beginning 0)) ?.) nil))))))
+;; (dotimes (i 8)
+;;   (font-lock-add-keywords 'emacs-lisp-mode
+;; 			  `((,(concat "^" (make-string i ?\s) "\\( \\)")
+;; 			     (1 epo1-whitespace t)
+;; 			     (1 (compose-region
+;; 				 (match-beginning 1)
+;; 				 (match-end 1)
+;; 				 (char-to-string ?\xB7) nil))))))
+
 
 ;; (defvar epo1-error 'epo1-error)
 ;; (defface epo1-error
 ;;   '((t :foreground "red2"))
 ;;   "Face for error text.")
+
+
 (mapc (lambda (mode)
 	(font-lock-add-keywords mode '(("TODO" (0 font-lock-warning-face t)))))
       '(js-mode emacs-lisp-mode lisp-mode web-mode))
@@ -223,9 +221,6 @@
 (setq show-paren-delay 0)                         ; Highlight with no delay
 (setq show-paren-style 'parenthesis)              ; Highlight just brackets
 ;(setq show-paren-style 'expression)              ; Highlight entire bracket expression
-;(set-face-foreground 'show-paren-mismatch-face "darkseagreen2")
-;(set-face-background 'show-paren-mismatch-face "red")
-;(set-face-background 'show-paren-match-face "wheat1")
 (setq ediff-split-window-function 'split-window-horizontally) ; Use side-by-side buffers in ediff, comment out if using small screen
 (prefer-coding-system 'utf-8)
 
@@ -381,6 +376,16 @@
 ;; Set font
 ;;(set-face-attribute 'default nil :family "Courier New" :height 100) ;; Default
 (set-face-attribute 'default nil :family "Consolas" :height 100)
+
+;(set-face-foreground 'show-paren-mismatch-face "darkseagreen2")
+;(set-face-background 'show-paren-mismatch-face "red")
+;(set-face-background 'show-paren-match-face "wheat1")
+
+;; Whitespace colors
+(set-face-attribute whitespace-tab nil :foreground "#444444" :background (face-attribute 'default :background))
+(set-face-attribute 'whitespace-space nil :foreground "#444444" :background (face-attribute 'default :background))
+(set-face-attribute 'whitespace-hspace nil :foreground "#444444" :background (face-attribute 'default :background))
+(set-face-attribute 'whitespace-trailing nil :foreground "#ff0000" :background (face-attribute 'default :background))
 
 
 
@@ -762,6 +767,8 @@ See URL `https://github.com/sasstools/sass-lint'."
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 
 
+
+
 ;; ------------------------
 ;; Toggle breakpoint on line number click
 ;; ------------------------
@@ -825,109 +832,8 @@ See URL `https://github.com/sasstools/sass-lint'."
 ;; Shortcuts
 ;; ------------------------------------------------
 
-
-;; ------------------------
-;; Normal Shortcuts Mode
-;; ------------------------
-
-(defun ns-simulate-prefix (key)
-  (setq this-command last-command)
-  (setq emulation-mode-map-alists
-	(delq 'ns-map-alist emulation-mode-map-alists))
-  ;;(prefix-command-preserve-state)
-  (setq unread-command-events
-	(cons key unread-command-events)))
-
-(defun ns-close ()
-  (interactive)
-  (if (region-active-p)
-      (kill-region (region-beginning) (region-end))
-      (kill-buffer)))
-
-(defun ns-copy ()
-  (interactive)
-  (if (region-active-p)
-      (kill-ring-save (region-beginning) (region-end))
-      (ns-simulate-prefix ?\C-c)))
-
-(defun ns-cut ()
-  (interactive)
-  (if (region-active-p)
-      (kill-region (region-beginning) (region-end))
-      (ns-simulate-prefix ?\C-x)))
-
-(defun ns-delete-line ()
-  (interactive)
-  (delete-region (line-beginning-position) (min (1+ (line-end-position)) (point-max))))
-
-(defun ns-new ()
-  (interactive)
-  (switch-to-buffer (generate-new-buffer-name "new")))
-
-(defun ns-save ()
-  (interactive)
-  (if (buffer-modified-p)
-      (save-buffer)
-      (isearch-forward)))
-
-(defvar ns-mode-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "C-a") 'mark-whole-buffer)
-    (define-key map (kbd "C-c") 'ns-copy)
-    (define-key map (kbd "C-d") 'ns-delete-line)
-    (define-key map (kbd "C-f") 'isearch-forward)
-    (define-key map (kbd "C-n") 'ns-new)
-    (define-key map (kbd "C-s") 'ns-save)
-    (define-key map (kbd "C-t") 'ns-new)
-    (define-key map (kbd "C-v") 'yank)
-    (global-set-key (kbd "C-w") 'ns-close)
-    (define-key map (kbd "C-x") 'ns-cut)
-    (define-key map (kbd "C-z") 'undo)
-    (define-key map (kbd "<C-tab>") 'other-window)
-    (define-key map (kbd "<C-S-tab>") #'(lambda () (interactive) (other-window -1)))
-    (define-key map (kbd "C-S-c") #'(lambda () (interactive) (ns-simulate-prefix ?\C-c)))
-    (define-key map (kbd "C-S-x") #'(lambda () (interactive) (ns-simulate-prefix ?\C-x)))
-    (define-key map [f5] 'revert-buffer)
-    (define-key map (kbd "<mouse-3>") 'mouse-major-mode-menu) ; Enable right click menu without Ctrl key
-    map))
-
-(defvar ns-map-alist
-  `((normal-shortcuts-mode . ,ns-mode-map)))
-
-(defun ns-post-command-handler ()
-  (when normal-shortcuts-mode
-    (unless (input-pending-p)
-      (pushnew 'ns-map-alist emulation-mode-map-alists))))
-
-(define-minor-mode normal-shortcuts-mode
-  "Enable normal shortcut keys like C-c to copy, without CUA timers."
-  :lighter " NS"
-  :global t
-  (if normal-shortcuts-mode
-      (progn
-	(define-key isearch-mode-map (kbd "C-f") 'isearch-repeat-forward)
-	(define-key isearch-mode-map (kbd "C-v") 'isearch-yank-kill)
-	(add-hook 'post-command-hook 'ns-post-command-handler)
-	(pushnew 'ns-map-alist emulation-mode-map-alists))
-      (progn
-	(define-key isearch-mode-map (kbd "C-f") nil)
-	(define-key isearch-mode-map (kbd "C-v") nil)
-	(remove-hook 'post-command-hook 'ns-post-command-handler)
-	(setq emulation-mode-map-alists
-	      (delq 'ns-map-alist emulation-mode-map-alists)))))
-
-;; Enable normal-shortcuts-mode
+(require 'normal-shortcuts)
 (normal-shortcuts-mode)
-
-;; Add menu checkbox
-(define-key global-map [menu-bar options normal-shortcuts-mode]
-  (menu-bar-make-toggle
-   toggle-normal-shortcuts-mode normal-shortcuts-mode
-    "Normal Shortcuts"
-    "Normal Shortcuts %s"
-    "Shortcuts like CUA but without timers."))
-
-
 
 
 ;; ------------------------
@@ -1264,3 +1170,5 @@ See URL `https://github.com/sasstools/sass-lint'."
 ;; (global-set-key (kbd "<C-return>") 'insert-comment-signature)
 ;; (global-set-key [C-M-down] 'search-comment-signature-forward)
 ;; (global-set-key [C-M-up] 'search-comment-signature-backward)
+
+
