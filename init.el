@@ -32,6 +32,7 @@
 ;;   - Move tabs Rato (parece complicado)
 ;;     - Melhorar o atalho de move quando queremos passar o ultimo file para o inicio da lista
 ;;   - Adicionar entrada de menu para editar o .emacs
+;;   - Experimentar https://melpa.org/#/zenburn-theme ou https://melpa.org/#/hc-zenburn-theme
 ;;
 ;; -----------------------------------------------------------------------------
 
@@ -57,7 +58,7 @@
 
 (setq inhibit-startup-message t)                       ; Hide startup message
 ;;(setq initial-scratch-message nil)                     ; Hide first scratch message
-;;(setq initial-frame-alist '((fullscreen . maximized))) ; Maximize (Win 8)
+;;(setq initial-frame-alist '((fullscreen . maximized))) ; Maximize (Win 8+)
 (defun maximize-frame ()                               ; Maximize (Win 7)
   (interactive)
   (w32-send-sys-command #xf030)) ; f030 = 61488
@@ -203,7 +204,16 @@
 ;; Behavior
 ;; ------------------------
 
-(server-mode) ; Allow git to request a commit message without launching a new process
+;; Emacs server
+;; Remeber to set Environment variable ALTERNATE_EDITOR=C:\path\to\emacs-XY.Z\bin\runemacs
+;; Also set files to open with "\"C:\\siscog-dev-tools\\emacs-24.3\\bin\\emacsclientw.exe\" -n \"%1\"":
+;; 1. Use the Windows "open with" dialog
+;; 2. Use a .reg/regedit to change relevant registry entries and add the -n
+(require 'server)
+(unless (server-running-p)
+  (server-start))
+
+
 
 (setq-default indent-tabs-mode t)                 ; Use tabs to indent
 (setq-default tab-width 8)                        ; Replace 8 spaces with tabs

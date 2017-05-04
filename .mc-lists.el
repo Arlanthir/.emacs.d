@@ -7,6 +7,7 @@
 	cua-paste
 	ignore
 	markdown-exdent-or-delete
+	ns-delete-line
 	slime-autodoc-space
 	))
 
@@ -14,6 +15,7 @@
       '(
 	keyboard-escape-quit
 	mouse-set-region
+	ns-save
 	sc-execute-main-utilities
 	sc-execute-run-applications
 	select-modif-request-action
