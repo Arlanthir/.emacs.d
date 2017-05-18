@@ -9,6 +9,7 @@
 	markdown-exdent-or-delete
 	ns-delete-line
 	slime-autodoc-space
+	typescript-insert-and-indent
 	))
 
 (setq mc/cmds-to-run-once

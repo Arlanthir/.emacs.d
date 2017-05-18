@@ -1,6 +1,6 @@
 ;; -----------------------------------------------------------------------------
 ;; .emacs configuration
-;; Version 0.9
+;; Version 0.91
 ;; Miguel Branco
 ;;
 ;; Major customizations:
@@ -170,7 +170,7 @@
 
 (mapc (lambda (mode)
 	(font-lock-add-keywords mode '(("TODO" (0 font-lock-warning-face t)))))
-      '(js-mode emacs-lisp-mode lisp-mode web-mode))
+      '(js-mode emacs-lisp-mode lisp-mode web-mode typescript-mode))
 
 
 
@@ -264,7 +264,7 @@
 ;; Grep options: line numbers, filenames, case insensitive, recursive
 ;; Only search in .lisp, .bil, .cl. Exclude .git directory.
 ;; Regex: ignore comments, place your query string after the * symbol in the regex
-(custom-set-variables '(grep-command "grep -nHir --include=*.{el,lisp,bil,cl,html,js,css,scss} --exclude-dir={.git,lib,doc} -e \"^[^;]*YOUR_QUERY\" z:/siscog/scs-vdev/scs"))
+(custom-set-variables '(grep-command "grep -nHir --include=*.{el,lisp,bil,cl,html,js,ts,css,scss} --exclude-dir={.git,lib,doc} -e \"^[^;]*YOUR_QUERY\" z:/siscog/scs-vdev/scs"))
 
 (require 'recentf) ; Recent Files - Build a list of recent files
 (recentf-mode 1)
@@ -345,7 +345,7 @@
     neotree
     scss-mode
     tabbar
-    ;;typescript-mode
+    typescript-mode
     undo-tree
     web-mode))
     ;; tabbar-ruler
@@ -430,9 +430,6 @@
 ;; Flycheck
 ;; ------------------------
 
-;; Remember to install eslint:
-;; npm install -g eslint
-
 (eval-after-load 'flycheck
   '(progn
 
@@ -453,7 +450,26 @@ See URL `https://github.com/sasstools/sass-lint'."
     (pushnew 'sass-lint flycheck-checkers)
 
     (setq flycheck-eslintrc "Z:/siscog/scs-vdev/task-runner/.eslintrc")
+    (setf (flycheck-checker-get 'javascript-eslint 'command) `("eslint" "--format=checkstyle"
+							       "--config" ,flycheck-eslintrc
+							       (option-list "--rulesdir" flycheck-eslint-rules-directories)
+							       "--stdin" "--stdin-filename" source-original))
+    ;; (defun flycheck-eslint-config-exists-p ()
+    ;;   "Whether there is an eslint config for the current buffer."
+    ;;   t)
+
+    (defun flycheck-eslint-config-exists-p ()
+      "Whether there is an eslint config for the current buffer."
+      (let* ((executable (flycheck-find-checker-executable 'javascript-eslint))
+	     (exitcode (and executable (call-process executable nil nil nil
+						     "--config" flycheck-eslintrc "--print-config" "."))))
+	(eq exitcode 0)))
+
+    ;; (setf (flycheck-checker-get 'javascript-eslint 'enabled) (lambda () t))
     (setq flycheck-javascript-eslint-executable "Z:/siscog/scs-vdev/task-runner/node_modules/.bin/eslint.cmd")
+
+    (setq flycheck-typescript-tslint-config "Z:/siscog/scs-vdev/task-runner/tslint.json")
+    (setq flycheck-typescript-tslint-executable "Z:/siscog/scs-vdev/task-runner/node_modules/.bin/tslint.cmd")
 
     (setq flycheck-sass-lintyml "Z:/siscog/scs-vdev/task-runner/.sass-lint.yml")
     (setq flycheck-sass-lint-executable "Z:/siscog/scs-vdev/task-runner/node_modules/.bin/sass-lint.cmd")
@@ -798,7 +814,7 @@ See URL `https://github.com/sasstools/sass-lint'."
 		  (number-to-string (1+ (length (number-to-string (count-lines (point-min) (point-max)))))))))
 
 (defun linum-highlight-breakpoint (line-number)
-  (let ((break-text (cond ((string= major-mode "js-mode")
+  (let ((break-text (cond ((or (string= major-mode "js-mode") (string= major-mode "typescript-mode"))
 			   "debugger;")
 			  ((string= major-mode "lisp-mode")
 			   "(break)"))))
@@ -815,7 +831,7 @@ See URL `https://github.com/sasstools/sass-lint'."
 (defun linum-toggle-breakpoint (e)
   (interactive "e")
   (let ((line-number (line-number-at-pos (posn-point (event-end e))))
-	(break-text (cond ((string= major-mode "js-mode")
+	(break-text (cond ((or (string= major-mode "js-mode") (string= major-mode "typescript-mode"))
 			   "debugger;")
 			  ((string= major-mode "lisp-mode")
 			   "(break)"))))
