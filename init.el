@@ -893,9 +893,19 @@ See URL `https://github.com/sasstools/sass-lint'."
         (comment-or-uncomment-region beg end)))
 
 
+;; TODO Improve this
 (defun interactive-ediff-file-with-original ()
   (interactive)
-  (ediff-file-with-original))
+  (message (buffer-file-name))
+  (if (string-match (format "%s/\\(.+\\)" *default-src-dir*) (buffer-file-name))
+      (let ((xfile (format "%s/%s" *default-org-dir* (match-string 1 (buffer-file-name)))))
+	(if (file-exists-p xfile)
+	    (ediff-file-with-original)
+	    (let ((variant (replace-regexp-in-string "\\.ts$" ".js" xfile)))
+	      (if (file-exists-p variant)
+		  (ediff-files (buffer-file-name) variant)
+		  (ediff-file-with-original)))))
+      (ediff-file-with-original)))
 
 
 (defun edit-selected-file ()
