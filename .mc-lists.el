@@ -9,6 +9,7 @@
 	markdown-exdent-or-delete
 	ns-delete-line
 	slime-autodoc-space
+	tab-to-tab-stop
 	typescript-insert-and-indent
 	))
 

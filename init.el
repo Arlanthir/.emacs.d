@@ -145,6 +145,7 @@
 ;; Default options: '(face tabs spaces trailing lines space-before-tab newline
 ;;                    indentation empty space-after-tab space-mark tab-mark newline-mark))
 (setq whitespace-style '(face trailing))  ; Show only some whitespace
+;; (setq whitespace-style '(face trailing space-mark tab-mark))  ; Show more whitespace
 (global-whitespace-mode t)             ; Enable globally for all buffers
 
 ;; (defvar epo1-whitespace 'epo1-whitespace)
@@ -503,7 +504,7 @@ See URL `https://github.com/sasstools/sass-lint'."
 
 (global-set-key (kbd "<C-S-up>") 'mc/mmlte--up)                ; Add cursor above
 (global-set-key (kbd "<C-S-down>") 'mc/mmlte--down)            ; Add cursor below
-(global-set-key (kbd "<mouse-1>") #'(lambda (e) (interactive "e") (mc/keyboard-quit) (mouse-set-point e)))  ; Cancel cursors on mouse click
+(global-set-key (kbd "<mouse-1>") #'(lambda (e) (interactive "e") (mc/keyboard-quit) (mouse-set-point e t)))  ; Cancel cursors on mouse click
 (global-unset-key (kbd "C-<down-mouse-1>"))                    ; Disable buffer menu and instead use multiple cursors
 (global-set-key (kbd "C-<mouse-1>") 'mc/add-cursor-on-click)   ; Add cursor at click
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-beginnings-of-lines)  ; Cursor for each line in marked region
