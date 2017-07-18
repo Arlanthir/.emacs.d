@@ -21,13 +21,15 @@
 			   "debugger;")
 			  ((string= major-mode "lisp-mode")
 			   "(break)"))))
-    (save-excursion
-     (goto-char (point-min))
-     (forward-line (1- line-number))
-     (let ((line-text (replace-regexp-in-string "\\`[ \t\n]*" "" (buffer-substring-no-properties (line-beginning-position) (line-end-position)))))
-       (if (and break-text (string= line-text break-text))
-	   (propertize (format (concat "%" linum-number-length "d") line-number) 'face 'linum-breakpoint)
-	   (propertize (format (concat "%" linum-number-length "d") line-number) 'face 'linum))))))
+    (if break-text
+	(save-excursion
+	 (goto-char (point-min))
+	 (forward-line (1- line-number))
+	 (let ((line-text (replace-regexp-in-string "\\`[ \t\n]*" "" (buffer-substring-no-properties (line-beginning-position) (line-end-position)))))
+	   (if (string= line-text break-text)
+	       (propertize (format (concat "%" linum-number-length "d") line-number) 'face 'linum-breakpoint)
+	       (propertize (format (concat "%" linum-number-length "d") line-number) 'face 'linum))))
+	(propertize (format (concat "%" linum-number-length "d") line-number) 'face 'linum))))
 
 (setq linum-format 'linum-highlight-breakpoint)
 
