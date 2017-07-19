@@ -123,15 +123,15 @@
 
 
 ;; ------------------------
-;; Hideshow / Hideshowvis
+;; Hideshow / Hideshowvis - Commented out due to performance issues
 ;; ------------------------
 
-;; (require 'hideshowvis)
-;; (hideshowvis-symbols)
-;; (setq hideshowvis-ignore-same-line nil)
-;; (set-face-attribute 'hs-face nil :background (face-attribute 'match :background))
-;; (add-hook 'prog-mode-hook #'hs-minor-mode)
-;; (add-hook 'prog-mode-hook #'hideshowvis-minor-mode)
+(require 'hideshowvis)
+(hideshowvis-symbols)
+;;(setq hideshowvis-ignore-same-line nil)
+(set-face-attribute 'hs-face nil :background (face-attribute 'match :background))
+(add-hook 'prog-mode-hook #'hs-minor-mode)
+(add-hook 'prog-mode-hook #'hideshowvis-minor-mode)
 
 
 ;; ------------------------
@@ -142,7 +142,8 @@
 
 (global-set-key (kbd "<C-S-up>") 'mc/mmlte--up)                ; Add cursor above
 (global-set-key (kbd "<C-S-down>") 'mc/mmlte--down)            ; Add cursor below
-(global-set-key (kbd "<mouse-1>") #'(lambda (e) (interactive "e") (mc/keyboard-quit) (mouse-set-point e t)))  ; Cancel cursors on mouse click
+(global-set-key (kbd "<mouse-1>") #'(lambda (e) (interactive "e") (mc/keyboard-quit) (mouse-set-point e)))  ; Cancel cursors on mouse click
+;;(global-set-key (kbd "<mouse-1>") #'(lambda (e) (interactive "e") (mc/keyboard-quit) (mouse-set-point e t)))  ; Cancel cursors on mouse click - Emacs 25.1+
 (global-unset-key (kbd "C-<down-mouse-1>"))                    ; Disable buffer menu and instead use multiple cursors
 (global-set-key (kbd "C-<mouse-1>") 'mc/add-cursor-on-click)   ; Add cursor at click
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-beginnings-of-lines)  ; Cursor for each line in marked region
@@ -180,6 +181,7 @@
 ;; ------------------------
 ;; Web-mode
 ;; ------------------------
+
 (require 'web-mode)
 
 (setq web-mode-enable-current-element-highlight t)
