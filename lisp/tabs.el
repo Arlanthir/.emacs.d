@@ -65,12 +65,13 @@
   ""
   :group 'tabbar)
 
-(defface tabbar-selected-modified                 ; Current tab when modified
-  '((t :inherit tabbar-selected
-       :overline t
-       :weight ultra-bold))
-  ""
-  :group 'tabbar)
+(set-face-attribute 'tabbar-selected-modified nil             ; Current tab when modified
+		    :inherit 'tabbar-selected
+		    :overline t
+		    :weight 'ultra-bold
+		    :foreground my-conf-tab-current-fg-color
+		    :box `(:line-width ,my-conf-tab-padding :color ,my-conf-tab-current-bg-color :style nil)
+		    )
 
 (set-face-attribute 'tabbar-button nil            ; Home / Left / Right buttons
 		    :inherit 'tabbar-default
