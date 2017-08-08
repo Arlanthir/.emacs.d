@@ -148,6 +148,7 @@
 (global-set-key (kbd "C-<mouse-1>") 'mc/add-cursor-on-click)   ; Add cursor at click
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-beginnings-of-lines)  ; Cursor for each line in marked region
 ;;(global-set-key (kbd "C-S-c C-S-c") 'mc/mark-all-in-region)  ; Search in region for something and place cursors in each
+(set-face-attribute 'mc/cursor-bar-face nil :height 4)         ; Reduce cursor size
 
 
 ;; ------------------------
