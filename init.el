@@ -215,3 +215,11 @@
 ;; ------------------------
 
 (require 'shortcuts)
+
+
+;; ------------------------
+;; Add menu entry to edit this file
+;; ------------------------
+
+(define-key-after global-map [menu-bar options customize initel]
+  (cons "Edit init.el" #'(lambda () (interactive) (find-file "~/.emacs.d/init.el"))))

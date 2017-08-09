@@ -16,7 +16,6 @@
 - Draw smarter whitespace: tabs and spaces before first word; trailing whitespace
 - Move tabs with mouse (seems complicated)
   - Improve the keyboard shortcut when we want to move the last tab to the beginning of the list
-- Add menu entry to edit init.el
 - Try out new theme https://melpa.org/#/zenburn-theme or https://melpa.org/#/hc-zenburn-theme
 
 ## Instructions
