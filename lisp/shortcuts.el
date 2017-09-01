@@ -32,7 +32,6 @@
 ;; TODO Improve this
 (defun interactive-ediff-file-with-original ()
   (interactive)
-  (message (buffer-file-name))
   (if (string-match (format "%s/\\(.+\\)" *default-src-dir*) (buffer-file-name))
       (let ((xfile (format "%s/%s" *default-org-dir* (match-string 1 (buffer-file-name)))))
 	(if (file-exists-p xfile)
@@ -58,6 +57,21 @@
 	(try-to-open-file (thing-at-point 'filename)))))
 
 
+;; TODO Don't hardcode last versions
+(defun ediff-frozen ()
+  (interactive)
+  (if (string-match (format "%s/\\([^/]+\\)/\\(.+\\)" *default-src-dir*) (buffer-file-name))
+      (let* ((version (match-string 1 (buffer-file-name)))
+	     (frozen-version (cond ((string= version "siscog-util-vdev")
+				    "siscog-util-v2-0-0")
+				   ((string= version "scs-vdev")
+				    "scs-v9-0-0")
+				   ((string= version "scs-siscog-vdev")
+				    "scs-siscog-v9-0-0")
+				   (t
+				    frozen-version)))
+	     (frozen-file (format "%s/%s/%s" "x:/crews" frozen-version (match-string 2 (buffer-file-name)))))
+	(ediff-files (buffer-file-name) frozen-file))))
 
 
 ;; Searching for modification signature (magic date)
@@ -95,6 +109,7 @@
 (global-set-key (kbd "<C-S-prior>") 'tabbar-move-tab-backward)         ; Move tab left
 (global-set-key (kbd "<C-S-next>") 'tabbar-move-tab-forward)           ; Move tab right
 
+(global-set-key [f9] 'ediff-frozen)				; Ediff with frozen version (instead of vdev)
 (global-set-key [f10] 'edit-selected-file)			; Open file under mouse cursor, complete path if needed
 (global-set-key [f11] 'interactive-ediff-file-with-original)	; Merge with original
 
