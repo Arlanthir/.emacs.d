@@ -38,7 +38,7 @@
 	    (ediff-file-with-original)
 	    (let ((variant (replace-regexp-in-string "\\.ts$" ".js" xfile)))
 	      (if (file-exists-p variant)
-		  (ediff-files (buffer-file-name) variant)
+		  (ediff-files variant (buffer-file-name))
 		  (ediff-file-with-original)))))
       (ediff-file-with-original)))
 
@@ -71,7 +71,7 @@
 				   (t
 				    frozen-version)))
 	     (frozen-file (format "%s/%s/%s" "x:/crews" frozen-version (match-string 2 (buffer-file-name)))))
-	(ediff-files (buffer-file-name) frozen-file))))
+	(ediff-files frozen-file (buffer-file-name)))))
 
 
 ;; Searching for modification signature (magic date)
