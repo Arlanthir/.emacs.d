@@ -58,7 +58,7 @@
 ;; Grep options: line numbers, filenames, case insensitive, recursive
 ;; Only search in .lisp, .bil, .cl. Exclude .git directory.
 ;; Regex: ignore comments, place your query string after the * symbol in the regex
-(custom-set-variables '(grep-command "grep -nHir --include=*.{el,lisp,bil,cl,html,js,ts,css,scss} --exclude-dir={.git,lib,doc} -e \"^[^;]*YOUR_QUERY\" z:/siscog/scs-vdev/scs"))
+(custom-set-variables '(grep-command "grep -nHir --include=*.{el,lisp,bil,cl,dic,html,js,ts,css,scss} --exclude-dir={.git,lib,doc} -e \"^[^;]*YOUR_QUERY\" z:/siscog/siscog-util-vdev/siscog-util z:/siscog/scs-vdev/scs z:/siscog/scs-siscog-vdev/scs-siscog"))
 
 (require 'recentf) ; Recent Files - Build a list of recent files
 (recentf-mode 1)
