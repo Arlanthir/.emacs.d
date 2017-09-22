@@ -136,6 +136,15 @@
 
 
 ;; ------------------------
+;; Magit
+;; ------------------------
+
+;; Rebind C-w to close magit
+(with-eval-after-load 'magit
+  (define-key magit-mode-map (kbd "C-w") #'(lambda () (interactive) (magit-mode-bury-buffer t))))
+
+
+;; ------------------------
 ;; Multiple Cursors
 ;; ------------------------
 
