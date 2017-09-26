@@ -127,12 +127,14 @@
 ;; Hideshow / Hideshowvis - Commented out due to performance issues
 ;; ------------------------
 
-(require 'hideshowvis)
-(hideshowvis-symbols)
-;;(setq hideshowvis-ignore-same-line nil)
-(set-face-attribute 'hs-face nil :background (face-attribute 'match :background))
+;; Shift + middle click in a line hides/shows the entire block
+
+;; (require 'hideshowvis)
+;; (hideshowvis-symbols)
+;; ;; (setq hideshowvis-ignore-same-line nil) ;; Uncomment if slow
+;; (set-face-attribute 'hs-face nil :background (face-attribute 'match :background))
 (add-hook 'prog-mode-hook #'hs-minor-mode)
-(add-hook 'prog-mode-hook #'hideshowvis-minor-mode)
+;; (add-hook 'prog-mode-hook #'hideshowvis-minor-mode)
 
 
 ;; ------------------------

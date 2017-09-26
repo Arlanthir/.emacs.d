@@ -195,7 +195,7 @@
     (rotatef (nth current-index current-tabs)
 	     (nth other-index current-tabs))
     ;; Refresh tabset
-    (tabbar-set-template current-tabset nil)))
+    (update-tab-bar)))
 
 (defun tabbar-move-tab-forward ()
   "Moves current tab to a previous position."
@@ -208,7 +208,7 @@
     (rotatef (nth current-index current-tabs)
 	     (nth other-index current-tabs))
     ;; Refresh tabset
-    (tabbar-set-template current-tabset nil)))
+    (update-tab-bar)))
 
 ;; (defun tabbar-my-mouse-down-callback (event)
 ;;   (interactive "@e")
