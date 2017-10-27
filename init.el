@@ -149,6 +149,13 @@
 ;; (add-hook 'prog-mode-hook #'hideshowvis-minor-mode)
 
 
+;; DEBUG SLOWNESS IN FCI AND HS:
+;; (setq gc-cons-threshold (* 511 1024 1024))
+;; (setq gc-cons-percentage 0.5)
+;; (run-with-idle-timer 5 t #'garbage-collect)
+;; (setq garbage-collection-messages t)
+
+
 ;; ------------------------
 ;; Magit
 ;; ------------------------
