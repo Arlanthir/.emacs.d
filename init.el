@@ -25,13 +25,16 @@
   '(ac-slime
     auto-complete
     atom-dark-theme
+    ;; fill-column-indicator
     flycheck
+    goto-last-change
     ;;handlebars-mode
     hideshowvis
     magit
     markdown-mode
     multiple-cursors
     neotree
+    ;; nlinum
     scss-mode
     tabbar
     typescript-mode
@@ -121,6 +124,15 @@
 ;; ------------------------
 
 (require 'linting)
+
+
+;; ------------------------
+;; Fill (80) column indicator
+;; ------------------------
+
+;; (require 'fill-column-indicator)
+;; (setq fci-always-use-textual-rule t)
+;; (add-hook 'prog-mode-hook #'fci-mode)
 
 
 ;; ------------------------
@@ -235,3 +247,6 @@
 
 (define-key-after global-map [menu-bar options customize initel]
   (cons "Edit init.el" #'(lambda () (interactive) (find-file "~/.emacs.d/init.el"))))
+
+
+

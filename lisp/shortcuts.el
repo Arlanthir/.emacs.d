@@ -116,6 +116,10 @@
 (global-set-key [M-down] 'search-mod-date-forward)        ; Next magic date
 (global-set-key [M-up] 'search-mod-date-backward)         ; Previous magic date
 
+(global-unset-key (kbd "<M-left>"))
+;;(global-set-key [M-left] (lambda () (interactive) (set-mark-command t)))
+(global-set-key [M-left] 'goto-last-change)
+
 ;; -- Mode-dependent shortcuts --
 
 ;; (setq fi:lisp-mode-hook

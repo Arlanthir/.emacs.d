@@ -7,6 +7,11 @@
 
 (require 'linum)                       ; Show line numbers (package)
 (global-linum-mode t)                  ; Show line numbers
+
+;; Alternative: supposedly faster but breaks our own breakpoints.el
+;; (require 'nlinum)                       ; Show line numbers (package)
+;; (global-nlinum-mode t)                  ; Show line numbers
+
 (setq frame-title-format "%b - %f")    ; Show filename in frame title
 (setq split-height-threshold 100)       ; Minimum window height when splitting
 (setq split-width-threshold 180)       ; Minimum window width when splitting
