@@ -87,8 +87,11 @@
 (set-face-background ediff-fine-diff-face-B "#113311")
 (set-face-background ediff-current-diff-face-C "#665022")
 (set-face-foreground ediff-odd-diff-face-A "black")
+(set-face-foreground ediff-even-diff-face-A "black")
+(set-face-foreground ediff-odd-diff-face-B "black")
 (set-face-foreground ediff-even-diff-face-B "black")
 (set-face-foreground ediff-odd-diff-face-C "black")
+(set-face-foreground ediff-even-diff-face-C "black")
 
 ;; Set font
 ;;(set-face-attribute 'default nil :family "Courier New" :height 100) ;; Default
