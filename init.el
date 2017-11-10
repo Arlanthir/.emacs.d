@@ -217,6 +217,7 @@
 (require 'web-mode)
 
 (setq web-mode-enable-current-element-highlight t)
+(setq web-mode-enable-auto-indentation nil)
 (set-face-attribute 'web-mode-html-tag-face nil :foreground (face-attribute 'font-lock-function-name-face :foreground))
 (set-face-attribute 'web-mode-html-attr-name-face nil :foreground (face-attribute 'font-lock-keyword-face :foreground))
 (set-face-attribute 'web-mode-current-element-highlight-face nil :foreground "Pink")
