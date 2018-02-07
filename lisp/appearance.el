@@ -76,7 +76,8 @@
 ;; Theme
 ;; ------------------------
 
-(load-theme 'atom-dark t)
+;; (load-theme 'atom-dark t)
+(load-theme 'atom-one-dark t)
 
 ;; Override some colors
 (set-face-background 'hl-line "grey10") ; Current line bg color

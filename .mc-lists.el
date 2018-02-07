@@ -15,6 +15,9 @@
 
 (setq mc/cmds-to-run-once
       '(
+	beginning-of-buffer
+	end-of-buffer
+	goto-last-change
 	keyboard-escape-quit
 	mouse-set-region
 	ns-save
