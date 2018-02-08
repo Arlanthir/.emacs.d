@@ -2,6 +2,9 @@
 ;; Shortcuts
 ;; ------------------------
 
+;; NOTE: Some SISCOG-related shortcuts are defined in siscog-configuration.el
+
+
 (defvar closed-files-list '())
 
 (defun track-closed-file ()

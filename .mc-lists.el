@@ -4,8 +4,10 @@
 (setq mc/cmds-to-run-for-all
       '(
 	comment-or-uncomment-region-or-line
+	completion-at-point
 	cua-paste
 	ignore
+	indent-for-tab-command
 	markdown-exdent-or-delete
 	ns-delete-line
 	slime-autodoc-space
