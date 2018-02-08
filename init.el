@@ -213,17 +213,80 @@
 (setq neo-mode-line-type 'none)
 (setq neo-window-width 35)
 (setq neo-window-fixed-size nil)
+
+
+(set-face-attribute 'neo-root-dir-face nil :foreground (face-attribute 'default :foreground) :weight 'bold)
+(set-face-attribute 'neo-file-link-face nil :foreground (face-attribute 'default :foreground))
+
+
+;; Change icon color
+;; TODO change only the icon color (and not the entire line)
+(defun neo-buffer--insert-fold-symbol (name &optional node-name)
+  "Write icon by NAME, the icon style affected by neo-theme.
+`open' write opened folder icon.
+`close' write closed folder icon.
+`leaf' write leaf icon.
+Optional NODE-NAME is used for the `icons' theme"
+  (let ((n-insert-image (lambda (n)
+                          (insert-image (neo-buffer--get-icon n))))
+        (n-insert-symbol (lambda (n)
+                           (neo-buffer--insert-with-face
+                            n 'neo-expand-btn-face))))
+    (cond
+     ((and (display-graphic-p) (equal neo-theme 'classic))
+      (or (and (equal name 'open)  (funcall n-insert-image "open"))
+          (and (equal name 'close) (funcall n-insert-image "close"))
+          (and (equal name 'leaf)  (funcall n-insert-image "leaf"))))
+     ((equal neo-theme 'arrow)
+      (or (and (equal name 'open)  (funcall n-insert-symbol "▾"))
+          (and (equal name 'close) (funcall n-insert-symbol "▸"))))
+     ((equal neo-theme 'nerd)
+      (or (and (equal name 'open)  (funcall n-insert-symbol "▾ "))
+          (and (equal name 'close) (funcall n-insert-symbol "▸ "))
+          (and (equal name 'leaf)  (funcall n-insert-symbol "  "))))
+     ((and (display-graphic-p) (equal neo-theme 'icons))
+      (unless (require 'all-the-icons nil 'noerror)
+        (error "Package `all-the-icons' isn't installed"))
+      (setq-local tab-width 1)
+      (or (and (equal name 'open)  (insert (propertize (all-the-icons-icon-for-dir node-name "down" "  ") 'face `(:family ,(all-the-icons-octicon-family) :foreground ,(face-attribute 'link :foreground) :height 120))))
+          (and (equal name 'close) (insert (propertize (all-the-icons-icon-for-dir node-name "right" "  ") 'face `(:family ,(all-the-icons-octicon-family) :foreground ,(face-attribute 'link :foreground) :height 120))))
+          (and (equal name 'leaf)  (insert (format "\t\t\t%s\t" (all-the-icons-icon-for-file node-name))))))
+     (t
+      (or (and (equal name 'open)  (funcall n-insert-symbol "- "))
+          (and (equal name 'close) (funcall n-insert-symbol "+ ")))))))
+
+
+;; Remove '/' from directory names
+(defun neo-buffer--insert-dir-entry (node depth expanded)
+  (let ((node-short-name (neo-path--file-short-name node)))
+    (insert-char ?\s (* (- depth 1) 2)) ; indent
+    (when (memq 'char neo-vc-integration)
+      (insert-char ?\s 2))
+    (neo-buffer--insert-fold-symbol
+     (if expanded 'open 'close) node)
+    (insert-button node-short-name
+                   'follow-link t
+                   'face neo-dir-link-face
+                   'neo-full-path node
+                   'keymap neotree-dir-button-keymap
+                   'help-echo (neo-buffer--help-echo-message node-short-name))
+    (neo-buffer--node-list-set nil node)
+    (neo-buffer--newline-and-begin)))
+
+
 (global-set-key (kbd "C-\\") 'neotree-toggle)
 
 ;;(add-hook 'buffer-list-update-hook #'(lambda () (neotree-refresh))) ;; INFINITE LOOP
 
+;; Show window divider
 (set-face-attribute 'window-divider nil :foreground "#181a1f" :background "#181a1f")
-
 (setq initial-frame-alist '((right-divider-width . 1)))
 
+;; Hide scroll bars in neotree
 (add-hook 'neo-after-create-hook #'(lambda (window) (set-window-scroll-bars neo-global--window 0 nil) ))
 
-
+;; Open by default
+(neotree-show)
 
 
 
