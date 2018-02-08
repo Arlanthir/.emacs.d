@@ -60,6 +60,17 @@
 (global-hl-line-mode 1)                            ; Highlight current line
 
 
+;; ------------------------
+;; Scroll bar
+;; ------------------------
+
+;; (require 'yascroll)
+;; (scroll-bar-mode -1)
+;; (setq yascroll:delay-to-hide nil) ;; Never hide scrollbar
+;; (set-face-background 'yascroll:thumb-fringe (face-attribute 'font-lock-function-name-face :foreground))
+;; (set-face-foreground 'yascroll:thumb-fringe (face-attribute 'font-lock-function-name-face :foreground))
+;; (global-yascroll-bar-mode 1)
+
 
 ;; ------------------------
 ;; Mode Line
@@ -97,6 +108,7 @@
 ;; Set font
 ;;(set-face-attribute 'default nil :family "Courier New" :height 100) ;; Default
 (set-face-attribute 'default nil :family "Consolas" :height 100)
+;; (set-face-attribute 'default nil :family "DejaVu Sans Mono" :height 100)
 
 ;(set-face-foreground 'show-paren-mismatch-face "darkseagreen2")
 ;(set-face-background 'show-paren-mismatch-face "red")

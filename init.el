@@ -23,6 +23,7 @@
 
 (defvar my-packages
   '(ac-slime
+    all-the-icons
     auto-complete
     atom-dark-theme
     atom-one-dark-theme
@@ -42,7 +43,8 @@
     tabbar
     typescript-mode
     undo-tree
-    web-mode))
+    web-mode
+    yascroll))
     ;; tabbar-ruler
 
 (let ((fresh-packages nil))
@@ -99,6 +101,18 @@
 
 (require 'behavior)
 
+
+;; ------------------------
+;; Packages
+;; ------------------------
+
+
+;; ------------------------
+;; All the icons
+;; ------------------------
+
+(require 'all-the-icons)
+(setq inhibit-compacting-font-caches t)
 
 ;; ------------------------
 ;; Auto-complete
@@ -190,8 +204,27 @@
 ;; ------------------------
 
 (require 'neotree)
+(setq neo-theme 'icons)
+(setq neo-autorefresh t)
+(setq neo-confirm-change-root 'off-p)
 (setq neo-smart-open t)
+;;(setq neo-show-updir-line t)
+(setq neo-banner-message nil)
+(setq neo-mode-line-type 'none)
+(setq neo-window-width 35)
+(setq neo-window-fixed-size nil)
 (global-set-key (kbd "C-\\") 'neotree-toggle)
+
+;;(add-hook 'buffer-list-update-hook #'(lambda () (neotree-refresh))) ;; INFINITE LOOP
+
+(set-face-attribute 'window-divider nil :foreground "#181a1f" :background "#181a1f")
+
+(setq initial-frame-alist '((right-divider-width . 1)))
+
+(add-hook 'neo-after-create-hook #'(lambda (window) (set-window-scroll-bars neo-global--window 0 nil) ))
+
+
+
 
 
 ;; ------------------------
@@ -269,3 +302,20 @@
 
 
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(grep-command
+   "grep -nHir --include=*.{el,lisp,bil,cl,dic,html,js,ts,css,scss} --exclude-dir={.git,lib,doc} -e \"^[^;]*YOUR_QUERY\" z:/siscog/siscog-util-vdev/siscog-util z:/siscog/scs-vdev/scs z:/siscog/scs-siscog-vdev/scs-siscog")
+ '(handlebars-basic-offset 4)
+ '(package-selected-packages
+   (quote
+    (yascroll web-mode undo-tree typescript-mode tabbar scss-mode powerline neotree multiple-cursors markdown-mode magit hideshowvis goto-last-change flycheck atom-one-dark-theme atom-dark-theme ac-slime))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
