@@ -232,8 +232,14 @@
 ;; ------------------------
 
 (require 'powerline)
-(setq powerline-height 25)
+(setq powerline-height 22)
 (powerline-default-theme)
+
+;; Powerline overrides
+(set-face-attribute 'powerline-active0 nil :background (face-attribute 'link :foreground) :foreground (face-attribute 'mode-line :background))
+(set-face-attribute 'powerline-active1 nil :foreground (face-attribute 'default :foreground) :background (face-attribute 'region :background))
+(set-face-attribute 'powerline-active2 nil :foreground (face-attribute 'mode-line :foreground) :background (face-attribute 'mode-line :background))
+
 
 ;; ------------------------
 ;; Tabbed Windows
@@ -302,20 +308,3 @@
 
 
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(grep-command
-   "grep -nHir --include=*.{el,lisp,bil,cl,dic,html,js,ts,css,scss} --exclude-dir={.git,lib,doc} -e \"^[^;]*YOUR_QUERY\" z:/siscog/siscog-util-vdev/siscog-util z:/siscog/scs-vdev/scs z:/siscog/scs-siscog-vdev/scs-siscog")
- '(handlebars-basic-offset 4)
- '(package-selected-packages
-   (quote
-    (yascroll web-mode undo-tree typescript-mode tabbar scss-mode powerline neotree multiple-cursors markdown-mode magit hideshowvis goto-last-change flycheck atom-one-dark-theme atom-dark-theme ac-slime))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
