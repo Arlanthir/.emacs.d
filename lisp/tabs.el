@@ -6,14 +6,23 @@
 
 ;; TODO Grab some colors from the current theme
 
-(defconst my-conf-tab-fg-color "grey85")          ; Tabbed windows fg color, suggestion: black
-(defconst my-conf-tab-bg-color "grey40")          ; Tabbed windows bg color, suggestion: grey80
-(defconst my-conf-tab-fg-hover "white")           ; Tabbed windows hover fg color, suggestion: black
-(defconst my-conf-tab-bg-hover "grey25")          ; Tabbed windows hover bg color, suggestion: grey75
-(defconst my-conf-tab-current-fg-color "white")   ; Tabbed windows current fg color, suggestion: grey20
-(defconst my-conf-tab-current-bg-color "#1d1f21") ; Tabbed windows current bg color, suggestion: grey95
-(defconst my-conf-tab-separator-color "#1d1f21")  ; Tabbed windows separator color, suggestion: grey56
-(defconst my-conf-tab-padding 5)                  ; Tabbed windows padding, suggestion: 3
+;; (defconst my-conf-tab-fg-color "grey85")          ; Tabbed windows fg color, suggestion: black
+;; (defconst my-conf-tab-bg-color "grey40")          ; Tabbed windows bg color, suggestion: grey80
+;; (defconst my-conf-tab-fg-hover "white")           ; Tabbed windows hover fg color, suggestion: black
+;; (defconst my-conf-tab-bg-hover "grey25")          ; Tabbed windows hover bg color, suggestion: grey75
+;; (defconst my-conf-tab-current-fg-color "white")   ; Tabbed windows current fg color, suggestion: grey20
+;; (defconst my-conf-tab-current-bg-color "#1d1f21") ; Tabbed windows current bg color, suggestion: grey95
+;; (defconst my-conf-tab-separator-color "#1d1f21")  ; Tabbed windows separator color, suggestion: grey56
+;; (defconst my-conf-tab-padding 5)                  ; Tabbed windows padding, suggestion: 3
+
+(defconst my-conf-tab-fg-color (face-attribute 'mode-line :foreground))       ; Tabbed windows fg color, suggestion: black
+(defconst my-conf-tab-bg-color (face-attribute 'mode-line :background))       ; Tabbed windows bg color, suggestion: grey80
+(defconst my-conf-tab-fg-hover (face-attribute 'region :foreground))          ; Tabbed windows hover fg color, suggestion: black
+(defconst my-conf-tab-bg-hover (face-attribute 'region :background))          ; Tabbed windows hover bg color, suggestion: grey75
+(defconst my-conf-tab-current-fg-color "white")                               ; Tabbed windows current fg color, suggestion: grey20
+(defconst my-conf-tab-current-bg-color (face-attribute 'default :background)) ; Tabbed windows current bg color, suggestion: grey95
+(defconst my-conf-tab-separator-color "#181a1f")                              ; Tabbed windows separator color, suggestion: grey56
+(defconst my-conf-tab-padding 7)                                              ; Tabbed windows padding, suggestion: 3
 
 
 (set-face-attribute 'tabbar-default nil           ; Default tab fonts and colors
@@ -87,6 +96,7 @@
 		    :foreground my-conf-tab-separator-color
 		    :background my-conf-tab-separator-color
 		    :height 1.0)
+
 
 (setq tabbar-buffer-home-button '(("") ""))       ; Hide home button
 (setq tabbar-scroll-left-button '(("") ""))       ; Hide left button
