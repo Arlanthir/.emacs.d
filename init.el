@@ -344,7 +344,8 @@ Optional NODE-NAME is used for the `icons' theme"
 ;; Toggle breakpoint on line number click
 ;; ------------------------
 
-(require 'breakpoints)
+;; Commented out because it's slow
+;; (require 'breakpoints)
 
 
 ;; ------------------------
