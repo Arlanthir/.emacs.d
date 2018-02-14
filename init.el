@@ -340,9 +340,25 @@ Optional NODE-NAME is used for the `icons' theme"
 ;;(set-face-attribute 'web-mode-current-element-highlight-face nil :background (face-attribute 'show-paren-match :background))
 (set-face-attribute 'web-mode-current-element-highlight-face nil :background (face-attribute 'match :background))
 
+(add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.json\\'" . web-mode))
+
+(flycheck-add-mode 'javascript-eslint 'web-mode)
+(flycheck-add-mode 'sass-lint 'web-mode)
+
+(defun setup-web-mode-linting ()
+  (let ((checker (cond ((string= web-mode-content-type "javascript")
+                        'javascript-eslint)
+		       ((string= web-mode-content-type "css")
+			'sass-lint))))
+    (flycheck-mode (if checker 1 -1))
+    (when checker
+      (flycheck-select-checker checker))))
+
+(add-hook 'web-mode-hook #'setup-web-mode-linting)
+
 
 ;; ------------------------
 ;; Toggle breakpoint on line number click

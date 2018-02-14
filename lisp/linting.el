@@ -5,6 +5,7 @@
 (eval-after-load 'flycheck
   '(progn
 
+     ;; SCSS
     (flycheck-def-config-file-var flycheck-sass-lintyml sass-lint ".sass-lint.yml"
      :safe #'stringp)
 
@@ -21,8 +22,13 @@ See URL `https://github.com/sasstools/sass-lint'."
 
     (pushnew 'sass-lint flycheck-checkers)
 
+    (setq flycheck-sass-lintyml "Z:/siscog/scs-vdev/task-runner/.sass-lint.yml")
+    (setq flycheck-sass-lint-executable "Z:/siscog/scs-vdev/task-runner/node_modules/.bin/sass-lint.cmd")
+
+
+    ;; Javascript
     (setq flycheck-eslintrc "Z:/siscog/scs-vdev/task-runner/.eslintrc")
-    (setf (flycheck-checker-get 'javascript-eslint 'command) `("eslint" "--format=checkstyle"
+    (setf (flycheck-checker-get 'javascript-eslint 'command) `("eslint" "--format=json"
 							       "--config" ,flycheck-eslintrc
 							       (option-list "--rulesdir" flycheck-eslint-rules-directories)
 							       "--stdin" "--stdin-filename" source-original))
@@ -40,12 +46,12 @@ See URL `https://github.com/sasstools/sass-lint'."
     ;; (setf (flycheck-checker-get 'javascript-eslint 'enabled) (lambda () t))
     (setq flycheck-javascript-eslint-executable "Z:/siscog/scs-vdev/task-runner/node_modules/.bin/eslint.cmd")
 
+    ;; Typescript
     (setq flycheck-typescript-tslint-config "Z:/siscog/scs-vdev/task-runner/tslint.json")
     (setq flycheck-typescript-tslint-executable "Z:/siscog/scs-vdev/task-runner/node_modules/.bin/tslint.cmd")
 
-    (setq flycheck-sass-lintyml "Z:/siscog/scs-vdev/task-runner/.sass-lint.yml")
-    (setq flycheck-sass-lint-executable "Z:/siscog/scs-vdev/task-runner/node_modules/.bin/sass-lint.cmd")
 
+    ;; Other configuration
     (setq flycheck-xml-parser 'flycheck-parse-xml-region)
     (setq-default flycheck-disabled-checkers '(emacs-lisp emacs-lisp-checkdoc))))
 
