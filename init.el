@@ -22,15 +22,16 @@
 (package-initialize)
 
 (defvar my-packages
-  '(ac-slime
+  '(
+    ac-slime
     all-the-icons
     auto-complete
-    atom-dark-theme
+    ;; atom-dark-theme
     atom-one-dark-theme
     ;; fill-column-indicator
     flycheck
     goto-last-change
-    ;;handlebars-mode
+    ;; handlebars-mode
     ;; hc-zenburn-theme
     ;; hideshowvis
     magit
@@ -44,8 +45,9 @@
     typescript-mode
     undo-tree
     web-mode
-    yascroll))
+    ;; yascroll
     ;; tabbar-ruler
+    ))
 
 (let ((fresh-packages nil))
   (unless package-archive-contents
@@ -329,8 +331,9 @@ Optional NODE-NAME is used for the `icons' theme"
 
 (require 'web-mode)
 
-(setq web-mode-enable-current-element-highlight t)
 (setq web-mode-enable-auto-indentation nil)
+(setq web-mode-enable-current-element-highlight t)
+
 (set-face-attribute 'web-mode-html-tag-face nil :foreground (face-attribute 'font-lock-function-name-face :foreground))
 (set-face-attribute 'web-mode-html-attr-name-face nil :foreground (face-attribute 'font-lock-keyword-face :foreground))
 (set-face-attribute 'web-mode-current-element-highlight-face nil :foreground "Pink")
@@ -338,7 +341,8 @@ Optional NODE-NAME is used for the `icons' theme"
 (set-face-attribute 'web-mode-current-element-highlight-face nil :background (face-attribute 'match :background))
 
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-
+(add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.json\\'" . web-mode))
 
 ;; ------------------------
 ;; Toggle breakpoint on line number click
