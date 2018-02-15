@@ -26,7 +26,6 @@
 (setq show-paren-style 'parenthesis)              ; Highlight just brackets
 ;(setq show-paren-style 'expression)              ; Highlight entire bracket expression
 (setq ediff-split-window-function 'split-window-horizontally) ; Use side-by-side buffers in ediff, comment out if using small screen
-(prefer-coding-system 'utf-8)
 
 ;; Indentation in specific languages
 (add-hook 'html-mode-hook
@@ -34,7 +33,7 @@
 	    ;; Default indentation is usually 2 spaces, changing to 4.
 	    (set (make-local-variable 'sgml-basic-offset) 4)))
 
-(custom-set-variables '(handlebars-basic-offset 4))
+;; (setq handlebars-basic-offset 4)
 
 ;; File backups and auto-saves
 (setq make-backup-files t       ; Make backup files
@@ -58,7 +57,7 @@
 ;; Grep options: line numbers, filenames, case insensitive, recursive
 ;; Only search in .lisp, .bil, .cl. Exclude .git directory.
 ;; Regex: ignore comments, place your query string after the * symbol in the regex
-(custom-set-variables '(grep-command "grep -nHir --include=*.{el,lisp,bil,cl,dic,html,js,ts,css,scss} --exclude-dir={.git,lib,doc} -e \"^[^;]*YOUR_QUERY\" z:/siscog/siscog-util-vdev/siscog-util z:/siscog/scs-vdev/scs z:/siscog/scs-siscog-vdev/scs-siscog"))
+(setq grep-command "grep -nHir --include=*.{el,lisp,bil,cl,dic,html,js,ts,css,scss} --exclude-dir={.git,lib,doc} -e \"^[^;]*YOUR_QUERY\" z:/siscog/siscog-util-vdev/siscog-util z:/siscog/scs-vdev/scs z:/siscog/scs-siscog-vdev/scs-siscog")
 
 (require 'recentf) ; Recent Files - Build a list of recent files
 (recentf-mode 1)
