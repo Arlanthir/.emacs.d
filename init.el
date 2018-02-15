@@ -28,7 +28,7 @@
     ac-slime
     all-the-icons
     auto-complete
-    ;; atom-dark-theme
+    atom-dark-theme
     atom-one-dark-theme
     company
     ;; fill-column-indicator
@@ -43,7 +43,7 @@
     neotree
     ;; nlinum
     powerline
-    scss-mode
+    ;; scss-mode
     tabbar
     tide
     typescript-mode
@@ -76,15 +76,6 @@
   (interactive)
   (w32-send-sys-command #xf030)) ; f030 = 61488
 (add-hook 'window-setup-hook 'maximize-frame t)        ; /Maximize (Win 7)
-
-(require 'desktop)                              ; Save desktop between sessions (package)
-(setq desktop-save t                            ; Save desktop between sessions
-      desktop-load-locked-desktop t             ; Load locked desktop files
-      desktop-path '("~/.emacs.d/")             ; Desktop sessions directory
-      desktop-dirname "~/.emacs.d/"             ; Desktop sessions directory
-      desktop-base-file-name ".desktop"         ; Desktop file
-      desktop-base-lock-name ".desktop.lock")   ; Locked desktop file
-(desktop-save-mode)
 
 
 ;; ------------------------
@@ -126,6 +117,8 @@
 
 (require 'auto-complete-config)
 (ac-config-default)
+(setq ac-modes (delete 'css-mode ac-modes))
+(setq ac-modes (delete 'scss-mode ac-modes))
 (ac-set-trigger-key "C-SPC")        ; Change trigger key
 ;;(setq ac-auto-start nil)          ; Don't auto suggest
 
@@ -141,6 +134,14 @@
 (eval-after-load "auto-complete"
                  '(add-to-list 'ac-modes 'slime-repl-mode))
 
+
+;; ------------------------
+;; Company
+;; ------------------------
+
+(add-hook 'css-mode-hook #'(lambda () (company-mode 1)))
+(add-hook 'scss-mode-hook #'(lambda () (company-mode 1)))
+(setq company-minimum-prefix-length 1)
 
 ;; ------------------------
 ;; Linting
@@ -404,12 +405,27 @@ Optional NODE-NAME is used for the `icons' theme"
 
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
+
 ;; ------------------------
 ;; Add menu entry to edit this file
 ;; ------------------------
 
 (define-key-after global-map [menu-bar options customize initel]
   (cons "Edit init.el" #'(lambda () (interactive) (find-file "~/.emacs.d/init.el"))))
+
+
+;; ------------------------
+;; Re-open files
+;; ------------------------
+
+(require 'desktop)                              ; Save desktop between sessions (package)
+(setq desktop-save t                            ; Save desktop between sessions
+      desktop-load-locked-desktop t             ; Load locked desktop files
+      desktop-path '("~/.emacs.d/")             ; Desktop sessions directory
+      desktop-dirname "~/.emacs.d/"             ; Desktop sessions directory
+      desktop-base-file-name ".desktop"         ; Desktop file
+      desktop-base-lock-name ".desktop.lock")   ; Locked desktop file
+(desktop-save-mode)
 
 
 

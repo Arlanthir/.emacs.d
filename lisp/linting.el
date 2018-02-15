@@ -13,7 +13,7 @@
      "A SASS (SCSS) checker using Sass Lint (on Node.js).
 See URL `https://github.com/sasstools/sass-lint'."
      :command ("sass-lint"
-	       "--verbose"
+	       "--verbose" "-q"
 	       "--format" "checkstyle"
 	       (config-file "--config" flycheck-sass-lintyml)
 	       source)
