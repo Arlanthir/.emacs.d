@@ -165,6 +165,7 @@
  		 (or (string= (buffer-name buffer) "*Messages*")
 		     (string= (buffer-name buffer) "*scratch*")
 		     (string= (buffer-name buffer) "*slime-events*")
+		     (string-prefix-p "*tide-server*" (buffer-name buffer))
 		     (string-prefix-p " *" (buffer-name buffer)))))
  	     (buffer-list)))
 

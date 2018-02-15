@@ -59,4 +59,16 @@
 
 (global-set-key "\C-cs" 'slime-selector)
 
+
+;; ------------------------
+;; TypeScript
+;; ------------------------
+
+;; Create a fallback tsconfig.json pointing to the SCS tsconfig.json
+(unless (file-exists-p "Z:/siscog/tsconfig.json")
+  (find-file "Z:/siscog/tsconfig.json")
+  (insert "{ extends: \"Z:/siscog/scs-vdev/scs/webcontent/app/tsconfig.json\" }")
+  (save-buffer)
+  (kill-buffer))
+
 (provide 'siscog-configuration)

@@ -93,6 +93,7 @@
 ;; Override some colors
 ;; (set-face-background 'hl-line "grey10") ; Current line bg color
 ;; (set-face-background 'region "SteelBlue4")  ; Selected region bg color
+(set-face-attribute 'highlight nil :background "#181A1F")
 ;; (set-face-attribute 'font-lock-warning-face nil :foreground "#E5C07B")
 (set-face-attribute 'font-lock-warning-face nil :foreground "#D19A66")
 

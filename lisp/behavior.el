@@ -66,6 +66,8 @@
 (require 'ido) ; Ido - Interactively do things
 (ido-mode t)   ; Offers suggestions when a command is ran in the mini-buffer
 
+(global-eldoc-mode +1) ; Documentation in the mini-buffer
+
 ;; Enable additional commands
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
