@@ -14,6 +14,8 @@
 ;; Dependencies
 ;; ------------------------
 
+(prefer-coding-system 'utf-8) ; Defined early to support asian chars on melpa packages
+
 (require 'package)
 ;; (add-to-list 'package-archives
 ;; 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
@@ -28,6 +30,7 @@
     auto-complete
     ;; atom-dark-theme
     atom-one-dark-theme
+    company
     ;; fill-column-indicator
     flycheck
     goto-last-change
@@ -397,11 +400,7 @@ Optional NODE-NAME is used for the `icons' theme"
   ;; (setq flycheck-check-syntax-automatically '(save mode-enabled))
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
-  ;; company is an optional dependency. You have to
-  ;; install it separately via package-install
-  ;; `M-x package-install [ret] company`
-  ;; (company-mode +1)
-  )
+  (company-mode +1))
 
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
