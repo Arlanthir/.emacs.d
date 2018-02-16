@@ -65,7 +65,10 @@
 (require 'ido) ; Ido - Interactively do things
 (ido-mode t)   ; Offers suggestions when a command is ran in the mini-buffer
 
-(global-eldoc-mode +1) ; Documentation in the mini-buffer
+;; (global-eldoc-mode +1) ; Documentation in the mini-buffer, emacs 25+
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
 
 ;; Enable additional commands
 (put 'upcase-region 'disabled nil)

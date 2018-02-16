@@ -27,9 +27,9 @@
   '(
     ac-slime
     all-the-icons
-    auto-complete
     atom-dark-theme
     atom-one-dark-theme
+    auto-complete
     company
     ;; fill-column-indicator
     flycheck
@@ -37,13 +37,10 @@
     ;; handlebars-mode
     ;; hc-zenburn-theme
     ;; hideshowvis
-    magit
-    markdown-mode
     multiple-cursors
     neotree
     ;; nlinum
     powerline
-    ;; scss-mode
     tabbar
     tide
     typescript-mode
@@ -52,6 +49,14 @@
     ;; yascroll
     ;; tabbar-ruler
     ))
+
+(if (>= emacs-major-version 25)
+    (setq my-packages (append my-packages
+			      '(magit markdown-mode))))
+
+(if (<= emacs-major-version 24)
+    (push 'scss-mode my-packages))
+
 
 (let ((fresh-packages nil))
   (unless package-archive-contents
@@ -143,6 +148,11 @@
 (add-hook 'scss-mode-hook #'(lambda () (company-mode 1)))
 (setq company-minimum-prefix-length 1)
 
+(eval-after-load 'company
+  '(progn
+     (define-key company-active-map (kbd "TAB") 'company-complete-selection)
+     (define-key company-active-map (kbd "<tab>") 'company-complete-selection)))
+
 ;; ------------------------
 ;; Linting
 ;; ------------------------
@@ -185,8 +195,8 @@
 ;; ------------------------
 
 ;; Rebind C-w to close magit
-(with-eval-after-load 'magit
-  (define-key magit-mode-map (kbd "C-w") #'(lambda () (interactive) (magit-mode-bury-buffer t))))
+(eval-after-load "magit"
+  '(define-key magit-mode-map (kbd "C-w") #'(lambda () (interactive) (magit-mode-bury-buffer t))))
 
 
 ;; ------------------------
@@ -197,8 +207,10 @@
 
 (global-set-key (kbd "<C-S-up>") 'mc/mmlte--up)                ; Add cursor above
 (global-set-key (kbd "<C-S-down>") 'mc/mmlte--down)            ; Add cursor below
-;;(global-set-key (kbd "<mouse-1>") #'(lambda (e) (interactive "e") (mc/keyboard-quit) (mouse-set-point e)))  ; Cancel cursors on mouse click
-(global-set-key (kbd "<mouse-1>") #'(lambda (e) (interactive "e") (mc/keyboard-quit) (mouse-set-point e t)))  ; Cancel cursors on mouse click - Emacs 25.1+
+(if (>= emacs-major-version 25)
+  (global-set-key (kbd "<mouse-1>") #'(lambda (e) (interactive "e") (mc/keyboard-quit) (mouse-set-point e t)))  ; Cancel cursors on mouse click - Emacs 25.1+
+  (global-set-key (kbd "<mouse-1>") #'(lambda (e) (interactive "e") (mc/keyboard-quit) (mouse-set-point e))))  ; Cancel cursors on mouse click
+
 (global-unset-key (kbd "C-<down-mouse-1>"))                    ; Disable buffer menu and instead use multiple cursors
 (global-set-key (kbd "C-<mouse-1>") 'mc/add-cursor-on-click)   ; Add cursor at click
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-beginnings-of-lines)  ; Cursor for each line in marked region
@@ -286,14 +298,17 @@ Optional NODE-NAME is used for the `icons' theme"
 ;;(add-hook 'buffer-list-update-hook #'(lambda () (neotree-refresh))) ;; INFINITE LOOP
 
 ;; Show window divider
-(set-face-attribute 'window-divider nil :foreground "#181a1f" :background "#181a1f")
-(setq initial-frame-alist '((right-divider-width . 1)))
+(when (facep 'window-divider)
+    (set-face-attribute 'window-divider nil :foreground "#181a1f" :background "#181a1f"))
+(when (facep 'vertical-border)
+    (set-face-attribute 'vertical-border nil :foreground "#181a1f" :background "#181a1f"))
+(add-to-list 'default-frame-alist '(right-divider-width . 1))
 
 ;; Hide scroll bars in neotree
-(add-hook 'neo-after-create-hook #'(lambda (window) (set-window-scroll-bars neo-global--window 0 nil) ))
+(add-hook 'neo-after-create-hook #'(lambda (window) (set-window-scroll-bars neo-global--window 0 nil)))
 
 ;; Open by default
-(neotree-show)
+;; (neotree-show)
 
 
 
@@ -345,24 +360,27 @@ Optional NODE-NAME is used for the `icons' theme"
 ;;(set-face-attribute 'web-mode-current-element-highlight-face nil :background (face-attribute 'show-paren-match :background))
 (set-face-attribute 'web-mode-current-element-highlight-face nil :background (face-attribute 'match :background))
 
-(add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.json\\'" . web-mode))
 
-(flycheck-add-mode 'javascript-eslint 'web-mode)
-(flycheck-add-mode 'sass-lint 'web-mode)
+(when (>= emacs-major-version 25)
+  (eval-after-load 'flycheck
+    '(progn
+       (flycheck-add-mode 'javascript-eslint 'web-mode)
+       (flycheck-add-mode 'sass-lint 'web-mode)))
 
-(defun setup-web-mode-linting ()
-  (let ((checker (cond ((string= web-mode-content-type "javascript")
-                        'javascript-eslint)
-		       ((string= web-mode-content-type "css")
-			'sass-lint))))
-    (flycheck-mode (if checker 1 -1))
-    (when checker
-      (flycheck-select-checker checker))))
+  (defun setup-web-mode-linting ()
+    (let ((checker (cond ((string= web-mode-content-type "javascript")
+			  'javascript-eslint)
+			 ((string= web-mode-content-type "css")
+			  'sass-lint))))
+      (flycheck-mode (if checker 1 -1))
+      (when checker
+	(flycheck-select-checker checker))))
 
-(add-hook 'web-mode-hook #'setup-web-mode-linting)
+  (add-hook 'web-mode-hook #'setup-web-mode-linting))
 
 
 ;; ------------------------
