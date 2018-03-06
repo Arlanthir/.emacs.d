@@ -95,7 +95,7 @@
 ;; ------------------------
 ;; Other
 ;; ------------------------
+(modify-coding-system-alist 'file "\\.dic\\'" 'iso-latin-1-dos)
 (modify-coding-system-alist 'file "\\.lisp\\'" 'iso-latin-1-dos)
-
 
 (provide 'siscog-configuration)

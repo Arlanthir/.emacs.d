@@ -423,6 +423,8 @@ Optional NODE-NAME is used for the `icons' theme"
 
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
+
 
 ;; ------------------------
 ;; Add menu entry to edit this file
