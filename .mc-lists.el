@@ -9,9 +9,12 @@
 	ignore
 	indent-for-tab-command
 	markdown-exdent-or-delete
+	markdown-outdent-or-delete
+	ns-cut
 	ns-delete-line
 	slime-autodoc-space
 	tab-to-tab-stop
+	typescript-insert-and-autoconvert-to-template
 	typescript-insert-and-indent
 	))
 
@@ -25,6 +28,7 @@
 	ns-save
 	sc-execute-main-utilities
 	sc-execute-run-applications
+	select-file-menu
 	select-modif-request-action
 	tabbar-backward
 	tabbar-forward

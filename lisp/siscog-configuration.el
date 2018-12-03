@@ -19,6 +19,7 @@
 (setenv "SISCOG_EMACS_DIR" "z:/siscog/sc-emacs")
 
 (setq sc-legacy-mode nil)
+;; (setq current-modification-mode 'git)
 
 (load (expand-file-name "init.el" (getenv "SISCOG_EMACS_DIR")))
 (load (expand-file-name "~/sc-user-param.el"))
@@ -72,24 +73,24 @@
   (kill-buffer))
 
 ;; Inject paths for development and disable compileOnSave (temporary, in testing)
-(when (file-exists-p "Z:/siscog/scs-vdev/scs/webcontent/app/tsconfig.json")
-  (let ((paths "\"paths\": {
-	    \"@angular/*\": [\"@angular/*\", \"../../../../scs-vdev/task-runner/node_modules/@angular/*\"],
-	    \"rxjs/*\": [\"rxjs/*\", \"../../../../scs-vdev/task-runner/node_modules/rxjs/*\"],
-	    \"siscog-util\": [\"siscog-util\", \"../../../../siscog-util-vdev/siscog-util/webcontent/app/siscog-util\"],
-	    \"siscog-util/*\": [\"siscog-util/*\", \"../../../../siscog-util-vdev/siscog-util/webcontent/app/siscog-util/*\"]
-	},"))
-    (find-file "Z:/siscog/scs-vdev/scs/webcontent/app/tsconfig.json")
-    (beginning-of-buffer)
-    (unless (re-search-forward "paths" nil t)
-      (re-search-forward "baseUrl")
-      (forward-line)
-      (beginning-of-line)
-      (insert "\t" paths "\n"))
-    (when (re-search-forward "\"compileOnSave\": true" nil t)
-      (kill-whole-line))
-    (save-buffer)
-    (kill-buffer)))
+;;(when (file-exists-p "Z:/siscog/scs-vdev/scs/webcontent/app/tsconfig.json")
+;;  (let ((paths "\"paths\": {
+;;	    \"@angular/*\": [\"@angular/*\", \"../../../../scs-vdev/task-runner/node_modules/@angular/*\"],
+;;	    \"rxjs/*\": [\"rxjs/*\", \"../../../../scs-vdev/task-runner/node_modules/rxjs/*\"],
+;;	    \"siscog-util\": [\"siscog-util\", \"../../../../siscog-util-vdev/siscog-util/webcontent/app/siscog-util\"],
+;;	    \"siscog-util/*\": [\"siscog-util/*\", \"../../../../siscog-util-vdev/siscog-util/webcontent/app/siscog-util/*\"]
+;;	},"))
+;;    (find-file "Z:/siscog/scs-vdev/scs/webcontent/app/tsconfig.json")
+;;    (beginning-of-buffer)
+;;    (unless (re-search-forward "paths" nil t)
+;;      (re-search-forward "baseUrl")
+;;      (forward-line)
+;;      (beginning-of-line)
+;;      (insert "\t" paths "\n"))
+;;    (when (re-search-forward "\"compileOnSave\": true" nil t)
+;;      (kill-whole-line))
+;;    (save-buffer)
+;;    (kill-buffer)))
 
 
 ;; ------------------------
