@@ -19,6 +19,7 @@
 (setenv "SISCOG_EMACS_DIR" "z:/siscog/sc-emacs")
 
 (setq sc-legacy-mode nil)
+(setq *use-slime* t)
 ;; (setq current-modification-mode 'git)
 
 (load (expand-file-name "init.el" (getenv "SISCOG_EMACS_DIR")))
@@ -39,8 +40,8 @@
 ;; Slime
 ;; ------------------------
 
-(add-to-list 'load-path "z:/siscog/slime")
-(require 'slime-autoloads)
+;;(add-to-list 'load-path "z:/siscog/slime")
+;;(require 'slime-autoloads)
 (add-to-list 'slime-contribs 'slime-fancy)
 (add-to-list 'slime-contribs 'slime-indentation)
 
@@ -49,8 +50,8 @@
 ;; ------------------------
 
 ;; Setup simple do sc-sly, a cola entre SC-Emacs e Slime
-(add-to-list 'load-path "z:/siscog/sc-sly")
-(require 'siscog-sly)
+;;(add-to-list 'load-path "z:/siscog/sc-sly")
+;;(require 'siscog-sly)
 
 ;; And now other stuff
 (remove-hook 'sc-startup-hook (first (last sc-startup-hook)))
