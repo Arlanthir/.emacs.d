@@ -31,6 +31,7 @@
     atom-one-dark-theme
     auto-complete
     company
+    dockerfile-mode
     ;; fill-column-indicator
     flycheck
     goto-last-change
@@ -46,6 +47,7 @@
     typescript-mode
     undo-tree
     web-mode
+    yaml-mode
     ;; yascroll
     ;; tabbar-ruler
     ))
