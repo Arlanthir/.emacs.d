@@ -54,10 +54,10 @@
 ;;(require 'siscog-sly)
 
 ;; And now other stuff
-(remove-hook 'sc-startup-hook (first (last sc-startup-hook)))
-(add-hook 'sc-startup-hook
-	  (lambda () (sc-set-acl-version :v10-1-64 :no-registry))
-	  :append)
+;; (remove-hook 'sc-startup-hook (first (last sc-startup-hook)))
+;; (add-hook 'sc-startup-hook
+;; 	  (lambda () (sc-set-acl-version :v10-1-64 :no-registry))
+;; 	  :append)
 
 (global-set-key "\C-cs" 'slime-selector)
 
