@@ -295,7 +295,7 @@ Optional NODE-NAME is used for the `icons' theme"
     (neo-buffer--newline-and-begin)))
 
 
-(global-set-key (kbd "C-\\") 'neotree-toggle)
+(global-set-key (kbd "C-b") 'neotree-toggle)
 
 ;;(add-hook 'buffer-list-update-hook #'(lambda () (neotree-refresh))) ;; INFINITE LOOP
 
